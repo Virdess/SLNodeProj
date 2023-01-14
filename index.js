@@ -9,11 +9,13 @@ import handleValidationErrors from './utils/handleValidationErrors.js';
 
 import * as UserController from './Controllers/UserController.js'
 import * as PostsController from './Controllers/PostsController.js'
+import * as LessonController from './Controllers/LessonController.js'
+import * as UserProfileController from './Controllers/UserProfileController.js'
 
 //Я не знаю, зачем это, это посоветовал сделать сам монгуст
 mongoose.set('strictQuery', false);
 
-//
+//Подключение к базе данных
 mongoose.connect(
     'mongodb+srv://Virdesss:MyAss252181@cluster0.tbpq5tf.mongodb.net/blog?retryWrites=true&w=majority'
     ).then(()=>{
@@ -24,12 +26,14 @@ mongoose.connect(
 
 const app = express();
 
+//Я не знаю доподлинно, как оно работает, вроде как работает над сохранением файлов
+//#######TODO Сделать уникальные имена для каждого файла
 const storage = multer.diskStorage({
     destination: (_, __, cb) =>{
-        cb(null, 'uploads')
+        cb(null, 'uploads') //папка созранения
     },
     filename:(_, file, cb) =>{
-        cb(null, file.originalname)
+        cb(null, file.originalname) //сохранение файла + даём ему имя получая оригинальное название файла через file.originalname
     },
 })
 
@@ -48,10 +52,18 @@ app.get('/', (req, res) =>{
     return res.send('OK')
 })
 
-//Эндпоинты для работы с регистрацией и аутентификацией
+//Эндпоинты для работы с регистрацией и аутентификацией (в т.ч профилей)
 app.post('/auth/login', loginValidation, handleValidationErrors,UserController.login)
-app.post('/reg', registerValidation, handleValidationErrors, UserController.register)
+app.post('/auth/reg', registerValidation, handleValidationErrors, UserController.register)
+//     ######TODO######        роли пользователей (Преподаватель, студент, админ, супервайзер)
 app.get('/auth/me', checkAuth, UserController.getMe)
+app.post('/profile', checkAuth, UserProfileController.profileCreate)
+//app.patch('/profile', checkAuth, UserProfileController.profileUpdate)
+
+//Эндпоинт для обновления данных профиля ######TODO######
+
+//Эндпоинт для модерации аккаунтов при регистрации
+
 
 //Эндпоинт для загрузки файлов (в момент 13.01.2023 для загрузки аватарок)
 app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
@@ -66,6 +78,26 @@ app.get('/posts/:id', PostsController.getOne)
 app.post('/posts', checkAuth, postCreateValidation, PostsController.create)
 app.patch('/posts/:id', checkAuth, postCreateValidation, PostsController.update)
 app.delete('/posts/:id', checkAuth, PostsController.remove)
+
+//Эндпоинты для логики предметов (уроков)
+app.get('/lesson/:id', LessonController.lessonGetById)
+app.get('/lesson/name/:lessonName', LessonController.lessonGetByName)
+app.post('/lesson', LessonController.lessonCreate)
+//app.get('/lessons', LessonController.lessonGetAll)
+//app.patch('/lesson/:id', LessonController.lessonUpdate)
+app.delete('/lesson/:id', LessonController.lessonDelete)
+
+//Эндпоинты для создания групп    ######TODO######
+
+//Эндпоинты для создания учебных завадений (С проверкой на админа)      ######TODO######
+
+//Эндпоинты для создания расписаний     ######TODO######
+
+//Эндпоинты для прикрепления комментариев к предметам     ######TODO######
+
+//Эндпоинты для оценок     ######TODO######
+
+//Эндпоинты для qr      ######TODO######
 
 //Запуск приложения
 app.listen(4444, (err) => {

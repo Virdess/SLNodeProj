@@ -18,3 +18,10 @@ export const postCreateValidation = [
     body('tags', 'Неверный формат тэгов').optional().isString(),
     body('imageUrl', 'Неверная ссылка на изображение').optional().isString(),
 ]
+
+export const userProfileValidation = [
+    body('firstName', 'Введите имя (Мин. 3 символа)').isLength({min: 3}).isString(),
+    body('midName', 'Введите фамилию (Мин. 10 символов)').isLength({min: 10}).isString(),
+    body('lastName', 'Отчество').optional().isString(),
+    body('role', 'роль не добавлена...').isString(),
+]
