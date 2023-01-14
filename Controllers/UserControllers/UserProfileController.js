@@ -1,4 +1,4 @@
-import ProfileModel from '../models/UserProfile.js';
+import ProfileModel from '../../models/UserModels/UserProfile.js';
 
 
 export const profileCreate = async(req, res) => {
@@ -17,27 +17,28 @@ export const profileCreate = async(req, res) => {
     } catch (error) {
         console.log(error)
         res.status(500).json({
-            message: 'Не удалось зарегистрироваться'
+            message: 'Не удалось зарегистрировать профиль'
         })
     }
 }
 
 export const profileGetMe = async (req, res) =>{
     try {
-        const user = await UserModel.findById(req.userID)
+        const lessonId = req.params.id
+        const lesson = await ProfileModel.findOne({
+            _id: lessonId
+        })
 
-        if(!user){
+        if(!lesson){
             return res.status(404).json({
-                message:'Пользователь не найден',
+                message:'Профиль не найден',
             })
         }
 
-        const {passwordHash, ...userData} = user._doc
-
-        res.json({
-            ...userData,})
+        res.json({lesson})
     } catch (error) {
         console.log(error)
+        return res.status(500).json('Не удалось получить профиль')
     }
 
 }

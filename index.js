@@ -7,10 +7,10 @@ import {registerValidation,loginValidation,postCreateValidation} from './validat
 import checkAuth from './utils/checkAuth.js';
 import handleValidationErrors from './utils/handleValidationErrors.js';
 
-import * as UserController from './Controllers/UserController.js'
-import * as PostsController from './Controllers/PostsController.js'
-import * as LessonController from './Controllers/LessonController.js'
-import * as UserProfileController from './Controllers/UserProfileController.js'
+import * as UserController from './Controllers/UserControllers/UserController.js'
+import * as PostsController from './Controllers/SocialControllers/PostsController.js'
+import * as LessonController from './Controllers/TimetableControllers/LessonController.js'
+import * as UserProfileController from './Controllers/UserControllers/UserProfileController.js'
 
 //Я не знаю, зачем это, это посоветовал сделать сам монгуст
 mongoose.set('strictQuery', false);
@@ -57,6 +57,7 @@ app.post('/auth/login', loginValidation, handleValidationErrors,UserController.l
 app.post('/auth/reg', registerValidation, handleValidationErrors, UserController.register)
 //     ######TODO######        роли пользователей (Преподаватель, студент, админ, супервайзер)
 app.get('/auth/me', checkAuth, UserController.getMe)
+app.get('/profile/:id', checkAuth, UserProfileController.profileGetMe)
 app.post('/profile', checkAuth, UserProfileController.profileCreate)
 //app.patch('/profile', checkAuth, UserProfileController.profileUpdate)
 

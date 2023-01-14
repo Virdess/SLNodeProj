@@ -1,7 +1,7 @@
 
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
-import UserModel from '../models/User.js';
+import UserModel from '../../models/UserModels/User.js';
 
 
 export const register = async(req, res) => {
@@ -14,7 +14,7 @@ export const register = async(req, res) => {
 
         const doc = new UserModel({
             email: req.body.email,
-            fullName: req.body.fullName,
+            userName: req.body.userName,
             avatarUrl: req.body.avatarUrl,
             passwordHash: hash,
         })

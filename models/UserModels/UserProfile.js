@@ -16,12 +16,12 @@ const UserProfieSchema = new mongoose.Schema({
     role:{
         type: String,
         required: true,
-        unique:true,
     },
     user:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        required: true,
+        unique:true,
     },
     //avatarUrl: String,
 }, {
