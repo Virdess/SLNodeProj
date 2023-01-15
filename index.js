@@ -89,16 +89,37 @@ app.post('/lesson', LessonController.lessonCreate)
 app.delete('/lesson/:id', LessonController.lessonDelete)
 
 //Эндпоинты для создания групп    ######TODO######
+//app.get('/groups', checkAuth. GroupController.groupGetAll)
+//app.get('/group/:id', checkAuth. GroupController.groupGetOneByID)
+//app.get('/group/:name', checkAuth. GroupController.groupGetOneByName)
+//app.post('group', checkAuth. GroupController.groupCreate)
+//app.patch('/group', checkAuth. GroupController.groupUpdate)
 
 //Эндпоинты для создания учебных завадений (С проверкой на админа)      ######TODO######
+//app.get('/enduinsts', checkAuth. EduInstController.groupGetAll)
+//app.get('/enduinsts/:id', checkAuth. EduInstController.groupGetOneByID)
+//app.get('/enduinsts/:name', checkAuth. EduInstController.groupGetOneByName)
+//app.post('enduinsts', checkAuth. EduInstController.groupCreate)
+//app.patch('/enduinsts', checkAuth. EduInstController.groupUpdate)
 
 //Эндпоинты для создания расписаний     ######TODO######
+//app.get('/timetable', checkAuth. TimetableController.groupGetAll)
+//app.get('/timetable/:id', checkAuth. TimetableController.groupGetOneByID)
+//app.get('/timetable/:name', checkAuth. TimetableController.groupGetOneByName)
+//app.post('timetable', checkAuth. TimetableController.groupCreate)
+//app.patch('/timetable', checkAuth. TimetableController.groupUpdate)
 
 //Эндпоинты для прикрепления комментариев к предметам     ######TODO######
 
 //Эндпоинты для оценок     ######TODO######
+//app.get('/marks', checkAuth. MarkController.groupGetAll)
+//app.get('/marks/:id', checkAuth. MarkController.groupGetOneByID)
+//app.get('/marks/:name', checkAuth. MarkController.groupGetOneByName)
+//app.post('marks', checkAuth. MarkController.groupCreate)
+//app.patch('/marks', checkAuth. MarkController.groupUpdate)
 
 //Эндпоинты для qr      ######TODO######
+//generating endpoints
 
 //Запуск приложения
 app.listen(4444, (err) => {
