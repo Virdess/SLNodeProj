@@ -7,10 +7,7 @@ import {registerValidation,loginValidation,postCreateValidation} from './validat
 import checkAuth from './utils/checkAuth.js';
 import handleValidationErrors from './utils/handleValidationErrors.js';
 
-import * as UserController from './Controllers/UserControllers/UserController.js'
-import * as PostsController from './Controllers/SocialControllers/PostsController.js'
-import * as LessonController from './Controllers/TimetableControllers/LessonController.js'
-import * as UserProfileController from './Controllers/UserControllers/UserProfileController.js'
+import {UserController, PostsController, LessonController, UserProfileController, GroupController} from './Controllers/ControllersIndex.js'
 
 //Я не знаю, зачем это, это посоветовал сделать сам монгуст
 mongoose.set('strictQuery', false);
@@ -54,16 +51,17 @@ app.get('/', (req, res) =>{
 
 //Эндпоинты для работы с регистрацией и аутентификацией (в т.ч профилей)
 app.post('/auth/login', loginValidation, handleValidationErrors,UserController.login)
-app.post('/auth/reg', registerValidation, handleValidationErrors, UserController.register)
-//     ######TODO######        роли пользователей (Преподаватель, студент, админ, супервайзер)
+app.post('/auth/reg', registerValidation, handleValidationErrors, UserController.register)//     ######TODO######        роли пользователей (Преподаватель, студент, админ, супервайзер)
 app.get('/auth/me', checkAuth, UserController.getMe)
 app.get('/profile/:id', checkAuth, UserProfileController.profileGetMe)
 app.post('/profile', checkAuth, UserProfileController.profileCreate)
 //app.patch('/profile', checkAuth, UserProfileController.profileUpdate)
 
-//Эндпоинт для обновления данных профиля ######TODO######
 
-//Эндпоинт для модерации аккаунтов при регистрации
+//Эндпоинт для обновления данных профиля ######TODO######
+//app.patch('/profile', checkAuth, UserProfileController.profileUpdate)
+
+//Эндпоинт для модерации аккаунтов при регистрации (Модерирующий пользователь - супервайзер/админ)
 
 
 //Эндпоинт для загрузки файлов (в момент 13.01.2023 для загрузки аватарок)
@@ -78,6 +76,7 @@ app.get('/posts', PostsController.getAll)
 app.get('/posts/:id', PostsController.getOne)
 app.post('/posts', checkAuth, postCreateValidation, PostsController.create)
 app.patch('/posts/:id', checkAuth, postCreateValidation, PostsController.update)
+//get userposts
 app.delete('/posts/:id', checkAuth, PostsController.remove)
 
 //Эндпоинты для логики предметов (уроков)
@@ -89,37 +88,41 @@ app.post('/lesson', LessonController.lessonCreate)
 app.delete('/lesson/:id', LessonController.lessonDelete)
 
 //Эндпоинты для создания групп    ######TODO######
-//app.get('/groups', checkAuth. GroupController.groupGetAll)
-//app.get('/group/:id', checkAuth. GroupController.groupGetOneByID)
-//app.get('/group/:name', checkAuth. GroupController.groupGetOneByName)
-//app.post('group', checkAuth. GroupController.groupCreate)
-//app.patch('/group', checkAuth. GroupController.groupUpdate)
+app.get('/groups', checkAuth, GroupController.groupGetAll)
+app.get('/group/:id', checkAuth, GroupController.groupGetOneByID)
+app.get('/group/name/:groupName', checkAuth, GroupController.groupGetOneByName)
+app.post('/group', checkAuth, GroupController.groupCreate)
+app.delete('/group/:id', GroupController.groupDelete)
+//app.patch('/group', checkAuth, GroupController.groupUpdate)
+
+//Эндпоинты для расфасовки (чёбля) студентов по группам
 
 //Эндпоинты для создания учебных завадений (С проверкой на админа)      ######TODO######
-//app.get('/enduinsts', checkAuth. EduInstController.groupGetAll)
-//app.get('/enduinsts/:id', checkAuth. EduInstController.groupGetOneByID)
-//app.get('/enduinsts/:name', checkAuth. EduInstController.groupGetOneByName)
-//app.post('enduinsts', checkAuth. EduInstController.groupCreate)
-//app.patch('/enduinsts', checkAuth. EduInstController.groupUpdate)
+//app.get('/enduinsts', checkAuth, EduInstController.groupGetAll)
+//app.get('/enduinsts/:id', checkAuth, EduInstController.groupGetOneByID)
+//app.get('/enduinsts/:name', checkAuth, EduInstController.groupGetOneByName)
+//app.post('/enduinsts', checkAuth, EduInstController.groupCreate)
+//app.patch('/enduinsts', checkAuth, EduInstController.groupUpdate)
 
 //Эндпоинты для создания расписаний     ######TODO######
-//app.get('/timetable', checkAuth. TimetableController.groupGetAll)
-//app.get('/timetable/:id', checkAuth. TimetableController.groupGetOneByID)
-//app.get('/timetable/:name', checkAuth. TimetableController.groupGetOneByName)
-//app.post('timetable', checkAuth. TimetableController.groupCreate)
-//app.patch('/timetable', checkAuth. TimetableController.groupUpdate)
+//app.get('/timetable', checkAuth, TimetableController.groupGetAll)
+//app.get('/timetable/:id', checkAuth, TimetableController.groupGetOneByID)
+//app.get('/timetable/:name', checkAuth, TimetableController.groupGetOneByName)
+//app.post('/timetable', checkAuth, TimetableController.groupCreate)
+//app.patch('/timetable', checkAuth, TimetableController.groupUpdate)
 
 //Эндпоинты для прикрепления комментариев к предметам     ######TODO######
 
 //Эндпоинты для оценок     ######TODO######
-//app.get('/marks', checkAuth. MarkController.groupGetAll)
-//app.get('/marks/:id', checkAuth. MarkController.groupGetOneByID)
-//app.get('/marks/:name', checkAuth. MarkController.groupGetOneByName)
-//app.post('marks', checkAuth. MarkController.groupCreate)
-//app.patch('/marks', checkAuth. MarkController.groupUpdate)
+//app.get('/marks', checkAuth, MarkController.groupGetAll)
+//app.get('/marks/:id', checkAuth, MarkController.groupGetOneByID)
+//app.get('/marks/:name', checkAuth, MarkController.groupGetOneByName)
+//app.post('/marks', checkAuth, MarkController.groupCreate)
+//app.patch('/marks', checkAuth, MarkController.groupUpdate)
 
 //Эндпоинты для qr      ######TODO######
 //generating endpoints
+//scanning endpoints
 
 //Запуск приложения
 app.listen(4444, (err) => {

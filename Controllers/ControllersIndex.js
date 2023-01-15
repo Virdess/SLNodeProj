@@ -1,0 +1,5 @@
+export * as UserController from './UserControllers/UserController.js'
+export * as PostsController from './SocialControllers/PostsController.js'
+export * as LessonController from './TimetableControllers/LessonController.js'
+export * as UserProfileController from './UserControllers/UserProfileController.js'
+export * as GroupController from './EducationalInstituionsControllers/GroupsController.js'
