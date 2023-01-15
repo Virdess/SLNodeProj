@@ -7,7 +7,7 @@ import {registerValidation,loginValidation,postCreateValidation} from './validat
 import checkAuth from './utils/checkAuth.js';
 import handleValidationErrors from './utils/handleValidationErrors.js';
 
-import {UserController, PostsController, LessonController, UserProfileController, GroupController} from './Controllers/ControllersIndex.js'
+import {UserController, PostsController, LessonController, UserProfileController, GroupController, EduInstController} from './Controllers/ControllersIndex.js'
 
 //Я не знаю, зачем это, это посоветовал сделать сам монгуст
 mongoose.set('strictQuery', false);
@@ -27,7 +27,7 @@ const app = express();
 //#######TODO Сделать уникальные имена для каждого файла
 const storage = multer.diskStorage({
     destination: (_, __, cb) =>{
-        cb(null, 'uploads') //папка созранения
+        cb(null, 'uploads') //папка сохранения
     },
     filename:(_, file, cb) =>{
         cb(null, file.originalname) //сохранение файла + даём ему имя получая оригинальное название файла через file.originalname
@@ -87,7 +87,7 @@ app.post('/lesson', LessonController.lessonCreate)
 //app.patch('/lesson/:id', LessonController.lessonUpdate)
 app.delete('/lesson/:id', LessonController.lessonDelete)
 
-//Эндпоинты для создания групп    ######TODO######
+//Эндпоинты для создания групп
 app.get('/groups', checkAuth, GroupController.groupGetAll)
 app.get('/group/:id', checkAuth, GroupController.groupGetOneByID)
 app.get('/group/name/:groupName', checkAuth, GroupController.groupGetOneByName)
@@ -95,14 +95,14 @@ app.post('/group', checkAuth, GroupController.groupCreate)
 app.delete('/group/:id', GroupController.groupDelete)
 //app.patch('/group', checkAuth, GroupController.groupUpdate)
 
-//Эндпоинты для расфасовки (чёбля) студентов по группам
-
 //Эндпоинты для создания учебных завадений (С проверкой на админа)      ######TODO######
-//app.get('/enduinsts', checkAuth, EduInstController.groupGetAll)
-//app.get('/enduinsts/:id', checkAuth, EduInstController.groupGetOneByID)
-//app.get('/enduinsts/:name', checkAuth, EduInstController.groupGetOneByName)
-//app.post('/enduinsts', checkAuth, EduInstController.groupCreate)
-//app.patch('/enduinsts', checkAuth, EduInstController.groupUpdate)
+app.get('/enduinsts', checkAuth, EduInstController.getAll)
+app.get('/enduinsts/:id', checkAuth, EduInstController.getOneByID)
+app.get('/enduinsts/name/:eduInstName', checkAuth, EduInstController.getOneByName)
+app.post('/enduinsts', checkAuth, EduInstController.create)
+//app.patch('/enduinsts', checkAuth, EduInstController.update)
+
+//Эндпоинты для расфасовки (чёбля) студентов по группам
 
 //Эндпоинты для создания расписаний     ######TODO######
 //app.get('/timetable', checkAuth, TimetableController.groupGetAll)
@@ -123,6 +123,9 @@ app.delete('/group/:id', GroupController.groupDelete)
 //Эндпоинты для qr      ######TODO######
 //generating endpoints
 //scanning endpoints
+
+
+//Эндпоинты для создания достижений (Загрузка изображений с подписью)
 
 //Запуск приложения
 app.listen(4444, (err) => {

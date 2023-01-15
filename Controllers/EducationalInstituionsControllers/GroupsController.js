@@ -6,6 +6,7 @@ export const groupCreate = async(req, res) => {
 
         const doc = new GroupsModel({
             groupName: req.body.groupName,
+            eduInst: req.body.eduInst,
         })
 
         const group = await doc.save();
@@ -91,7 +92,7 @@ export const groupDelete = async (req, res) =>{
 export const groupGetAll = async (req, res) =>{
     try {
         const groups = await GroupsModel.find()
-        res.json(posts)
+        res.json(groups)
     } catch (error) {
         console.log(error)
         res.status(500).json({

@@ -23,7 +23,7 @@ const UserProfieSchema = new mongoose.Schema({
         required: true,
         unique:true,
     },
-    //avatarUrl: String,
+    avatarUrl: String,
 }, {
     timestamps: true,
 })
