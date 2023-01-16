@@ -83,7 +83,7 @@ app.delete('/posts/:id', checkAuth, PostsController.remove)
 app.get('/lesson/:id', LessonController.lessonGetById)
 app.get('/lesson/name/:lessonName', LessonController.lessonGetByName)
 app.post('/lesson', LessonController.lessonCreate)
-//app.get('/lessons', LessonController.lessonGetAll)
+app.get('/lessons', LessonController.lessonGetAll)
 //app.patch('/lesson/:id', LessonController.lessonUpdate)
 app.delete('/lesson/:id', LessonController.lessonDelete)
 
@@ -112,6 +112,9 @@ app.post('/timetable', checkAuth, TimetableController.create)
 app.patch('/timetable', checkAuth, TimetableController.remove)
 
 //Эндпоинты для прикрепления комментариев к предметам     ######TODO######
+//post
+//get
+//patch
 
 //Эндпоинты для оценок     ######TODO######
 //app.get('/marks', checkAuth, MarkController.groupGetAll)
@@ -126,6 +129,8 @@ app.patch('/timetable', checkAuth, TimetableController.remove)
 
 
 //Эндпоинты для создания достижений (Загрузка изображений с подписью)
+
+//Эндпоинты для чатов (пока что тех.поддержка)
 
 //Запуск приложения
 app.listen(4444, (err) => {

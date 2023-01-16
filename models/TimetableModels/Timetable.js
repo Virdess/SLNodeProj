@@ -6,18 +6,34 @@ const TimetableSchema = new mongoose.Schema({
         ref: 'Lesson',
         required: true,
     },
-    timeStart:{
-        type: String,
+    timeStartHour:{
+        type: Number,
         required: true
     },
-    timeEnd:{
-        type: String,
+    timeEndHour:{
+        type: Number,
+        required: true
+    },
+    timeStartMinute:{
+        type: Number,
+        required: true
+    },
+    timeEndMinute:{
+        type: Number,
         required: true
     },
     day:{
         type: String,
         required: true
-    }
+    },
+    updateStatus:{
+        type: Boolean,
+    },
+    group:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Group',
+        required: true
+    },
 })
 
 export default mongoose.model('Timetable', TimetableSchema)

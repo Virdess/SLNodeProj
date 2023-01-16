@@ -87,3 +87,15 @@ export const lessonDelete = async (req, res) =>{
         })
     }
 }
+
+export const lessonGetAll = async (req, res) =>{
+    try {
+        const lessons = await LessonModel.find()
+        res.json(lessons)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            message: 'Не удалось получить статьи'
+        })
+    }
+}
