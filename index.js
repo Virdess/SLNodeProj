@@ -7,7 +7,7 @@ import {registerValidation,loginValidation,postCreateValidation} from './validat
 import checkAuth from './utils/checkAuth.js';
 import handleValidationErrors from './utils/handleValidationErrors.js';
 
-import {UserController, PostsController, LessonController, UserProfileController, GroupController, EduInstController} from './Controllers/ControllersIndex.js'
+import {UserController, PostsController, LessonController, UserProfileController, GroupController, EduInstController, TimetableController} from './Controllers/ControllersIndex.js'
 
 //Я не знаю, зачем это, это посоветовал сделать сам монгуст
 mongoose.set('strictQuery', false);
@@ -105,11 +105,11 @@ app.post('/enduinsts', checkAuth, EduInstController.create)
 //Эндпоинты для расфасовки (чёбля) студентов по группам
 
 //Эндпоинты для создания расписаний     ######TODO######
-//app.get('/timetable', checkAuth, TimetableController.groupGetAll)
-//app.get('/timetable/:id', checkAuth, TimetableController.groupGetOneByID)
-//app.get('/timetable/:name', checkAuth, TimetableController.groupGetOneByName)
-//app.post('/timetable', checkAuth, TimetableController.groupCreate)
-//app.patch('/timetable', checkAuth, TimetableController.groupUpdate)
+app.get('/timetable', checkAuth, TimetableController.getAll)
+app.get('/timetable/:id', checkAuth, TimetableController.getOneByID)
+app.get('/timetable/name/:name', checkAuth, TimetableController.getOneByName)
+app.post('/timetable', checkAuth, TimetableController.create)
+app.patch('/timetable', checkAuth, TimetableController.remove)
 
 //Эндпоинты для прикрепления комментариев к предметам     ######TODO######
 

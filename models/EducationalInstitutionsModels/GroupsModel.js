@@ -9,7 +9,6 @@ const GroupsSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'EduInst',
         required: true,
-        unique:true,
     },
 })
 
