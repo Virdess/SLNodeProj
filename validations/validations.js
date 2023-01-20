@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 
 export const loginValidation = [
-    body('email', 'Неверный формат почты').isEmail(),
+    body('userName', 'Укажите имя (мин. 3 смвола)').isLength({min: 3}),
     body('password', 'Пароль должен быть минимум 5 символов').isLength({min: 5}),
 ]
 

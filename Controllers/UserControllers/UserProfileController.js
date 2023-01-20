@@ -7,7 +7,6 @@ export const profileCreate = async(req, res) => {
             firstName: req.body.firstName,
             midName: req.body.midName,
             lastName: req.body.lastName,
-            role: req.body.role,
             user: req.userID,
         })
 

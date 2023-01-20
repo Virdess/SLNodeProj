@@ -5,6 +5,7 @@ export const create = async(req, res) => {
     try {
 
         const doc = new TimetableModel({
+            timetableNum: req.body.timetableNum,
             lesson: req.body.lesson,
             timeStart: req.body.timeStart,
             timeEnd: req.body.timeEnd,

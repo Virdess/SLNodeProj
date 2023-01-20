@@ -16,6 +16,7 @@ export const register = async(req, res) => {
             email: req.body.email,
             userName: req.body.userName,
             avatarUrl: req.body.avatarUrl,
+            role: req.body.role,
             passwordHash: hash,
         })
 
@@ -46,7 +47,7 @@ export const register = async(req, res) => {
 export const login = async(req, res) =>{
     try {
         const user = await UserModel.findOne({
-            email: req.body.email
+            userName: req.body.userName
         })
         if (!user){
             return res.status(404).json({
@@ -64,6 +65,8 @@ export const login = async(req, res) =>{
 
         const token = jwt.sign({
             _id: user._id,
+            role: user.role,
+            username: user.userName,
         }, 
         'GAYGAYgay',
         {

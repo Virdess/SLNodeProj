@@ -51,7 +51,7 @@ export const lessonGetByName = async (req, res) =>{
             })
         }
 
-        res.json({lesson})
+        res.json(lesson)
     } catch (error) {
         console.log(error)
     }

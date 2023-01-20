@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const TimetableSchema = new mongoose.Schema({
+    timetableNum:{
+        type: Number,
+        required: true,
+    },
     lesson:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Lesson',
