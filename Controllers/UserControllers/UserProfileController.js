@@ -8,6 +8,7 @@ export const profileCreate = async(req, res) => {
             midName: req.body.midName,
             lastName: req.body.lastName,
             user: req.userID,
+            eduInst: req.body.eduInst,
         })
 
         const userProfile = await doc.save();

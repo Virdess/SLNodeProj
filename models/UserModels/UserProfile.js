@@ -19,6 +19,11 @@ const UserProfieSchema = new mongoose.Schema({
         required: true,
         unique:true,
     },
+    eduInst:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'EduInst',
+        required: true,
+    },
     avatarUrl: String,
 }, {
     timestamps: true,
