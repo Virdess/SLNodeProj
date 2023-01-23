@@ -29,8 +29,8 @@ const storage = multer.diskStorage({
     destination: (_, __, cb) =>{
         cb(null, 'uploads') //папка сохранения
     },
-    filename:(_, file, cb) =>{
-        cb(null, file.originalname) //сохранение файла + даём ему имя получая оригинальное название файла через file.originalname
+    filename:(req, file, cb) =>{
+        cb(null, req.userID + "-" + "profile" + ".jpg") //сохранение файла + даём ему имя получая оригинальное название файла через file.originalname
     },
 })
 
@@ -38,11 +38,20 @@ const upload = multer({
     storage
 })
 
+//Объясняем express что при любой ссылке /uploads надо выдать сам файл
+app.use('/uploads', express.static('uploads'))
+
+//Эндпоинт для загрузки файлов (в момент 13.01.2023 для загрузки аватарок)
+//На момент 20.01.2023 вырезано за ненадобностью на данный момент.
+app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
+    res.json({
+        url: `/uploads/${req.userID + "-" + "profile" + ".jpg"}`,
+    })
+})
+
 //Учим экспресс приложение работать с json
 app.use(express.json())
 
-//Объясняем express что при любой ссылке /uploads надо выдать сам файл
-app.use('/uploads', express.static('uploads'))
 
 //Проверочный эедпоинт, для просмотра работает ли сервер
 app.get('/', (req, res) =>{
@@ -55,6 +64,7 @@ app.post('/auth/reg', registerValidation, handleValidationErrors, UserController
 app.get('/auth/me', checkAuth, UserController.getMe)
 app.get('/profile/:id', checkAuth, UserProfileController.profileGetMe)
 app.post('/profile', checkAuth, UserProfileController.profileCreate)
+app.patch('/auth/me', checkAuth, UserController.editRole)
 //app.patch('/profile', checkAuth, UserProfileController.profileUpdate)
 
 
@@ -64,12 +74,6 @@ app.post('/profile', checkAuth, UserProfileController.profileCreate)
 //Эндпоинт для модерации аккаунтов при регистрации (Модерирующий пользователь - супервайзер/админ)
 
 
-//Эндпоинт для загрузки файлов (в момент 13.01.2023 для загрузки аватарок)
-app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
-    res.json({
-        url: `/uploads/${req.file.originalname}`,
-    })
-})
 
 //Эндпоинты для CRUD логики записей (можно использовать такой же для создания расписаний)
 app.get('/posts', PostsController.getAll)

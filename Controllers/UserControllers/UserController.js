@@ -105,3 +105,24 @@ export const getMe = async (req, res) =>{
     }
 
 }
+
+export const editRole = async (req, res) => {
+    try {
+        const userID = req.params.id
+        await UserModel.updateOne({
+            _id:userID
+        }, 
+        {
+            status: req.body.status,
+        })
+
+        res.json({
+            success: true
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            message: 'Не удалось обновить статус'
+        })
+    }
+}

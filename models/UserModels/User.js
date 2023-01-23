@@ -11,7 +11,13 @@ const UserSchema = new mongoose.Schema({
         unique:true,
     },
     role:{
+        type: Array,
+        default: ["ROLE_STUDENT"],
+        required: true,
+    },
+    status:{
         type: String,
+        default: "MODERATION",
         required: true,
     },
     passwordHash:{
