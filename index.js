@@ -133,7 +133,8 @@ app.patch('/timetable', checkAuth, TimetableController.remove)
 //Эндпоинты для qr      ######TODO######
 //generating endpoints
 /************************* */
-app.get('/qr_code',checkAuth, QRCodeController.generate)
+app.get('/qr_code/sym',checkAuth, QRCodeController.generateAsSymbols)
+app.get('/qr_code/str',checkAuth, QRCodeController.generateAsString)
 /************************* */
 
 
