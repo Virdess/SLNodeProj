@@ -64,7 +64,7 @@ app.post('/auth/reg', registerValidation, handleValidationErrors, UserController
 app.get('/auth/me', checkAuth, UserController.getMe)
 app.get('/profile/:id', checkAuth, UserProfileController.profileGetMe)
 app.post('/profile', checkAuth, UserProfileController.profileCreate)
-app.patch('/auth/me', checkAuth, UserController.editRole)
+app.patch('/auth/me', checkAuth, UserController.editStatus)
 //app.patch('/profile', checkAuth, UserProfileController.profileUpdate)
 
 

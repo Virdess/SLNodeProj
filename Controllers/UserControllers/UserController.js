@@ -106,7 +106,7 @@ export const getMe = async (req, res) =>{
 
 }
 
-export const editRole = async (req, res) => {
+export const editStatus = async (req, res) => {
     try {
         const userID = req.params.id
         await UserModel.updateOne({
