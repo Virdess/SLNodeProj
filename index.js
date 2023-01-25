@@ -7,14 +7,17 @@ import {registerValidation,loginValidation,postCreateValidation} from './validat
 import checkAuth from './utils/checkAuth.js';
 import handleValidationErrors from './utils/handleValidationErrors.js';
 
-import {UserController, PostsController, LessonController, UserProfileController, GroupController, EduInstController, TimetableController} from './Controllers/ControllersIndex.js'
+import {UserController, PostsController, LessonController, UserProfileController, GroupController, EduInstController, TimetableController, QRCodeController} from './Controllers/ControllersIndex.js'
+
+
+
 
 //Я не знаю, зачем это, это посоветовал сделать сам монгуст
 mongoose.set('strictQuery', false);
 
 //Подключение к базе данных
 mongoose.connect(
-    'mongodb+srv://Virdesss:MyAss252181@cluster0.tbpq5tf.mongodb.net/blog?retryWrites=true&w=majority'
+    'mongodb://127.0.0.1:27017/blog?retryWrites=true&w=majority'
     ).then(()=>{
         console.log("DB OK")
     }).catch((err)=>{
@@ -129,12 +132,37 @@ app.patch('/timetable', checkAuth, TimetableController.remove)
 
 //Эндпоинты для qr      ######TODO######
 //generating endpoints
+/************************* */
+app.get('/qr_code',checkAuth, QRCodeController.generate)
+/************************* */
+
+
 //scanning endpoints
 
 
 //Эндпоинты для создания достижений (Загрузка изображений с подписью)
 
 //Эндпоинты для чатов (пока что тех.поддержка)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Запуск приложения
 app.listen(4444, (err) => {

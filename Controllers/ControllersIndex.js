@@ -5,3 +5,4 @@ export * as UserProfileController from './UserControllers/UserProfileController.
 export * as GroupController from './EducationalInstituionsControllers/GroupsController.js'
 export * as EduInstController from './EducationalInstituionsControllers/EduInstController.js'
 export * as TimetableController from './TimetableControllers/TimetableController.js'
+export * as QRCodeController from './QRCodeController/QRCodeGenerateController.js'
