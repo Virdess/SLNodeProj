@@ -7,8 +7,11 @@ export const create = async(req, res) => {
         const doc = new TimetableModel({
             timetableNum: req.body.timetableNum,
             lesson: req.body.lesson,
-            timeStart: req.body.timeStart,
-            timeEnd: req.body.timeEnd,
+            timeStartHour: req.body.timeStartHour,
+            timeStartMinute: req.body.timeStartMinute,
+            timeEndHour: req.body.timeEndHour,
+            timeEndMinute: req.body.timeEndMinute,
+            group: req.body.group,
             day: req.body.day,
         })
 

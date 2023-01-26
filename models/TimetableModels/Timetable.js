@@ -14,17 +14,15 @@ const TimetableSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    timeEndHour:{
-        type: Number,
-        required: true
-    },
     timeStartMinute:{
         type: Number,
-        required: true
+    },
+    timeEndHour:{
+        type: Number,
+        required: true,
     },
     timeEndMinute:{
         type: Number,
-        required: true
     },
     day:{
         type: String,

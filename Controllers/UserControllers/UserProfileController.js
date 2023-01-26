@@ -24,9 +24,10 @@ export const profileCreate = async(req, res) => {
 
 export const profileGetMe = async (req, res) =>{
     try {
-        const lessonId = req.params.id
+        const userID = req.userID
+        console.log(userID)
         const lesson = await ProfileModel.findOne({
-            _id: lessonId
+            user: userID
         })
 
         if(!lesson){

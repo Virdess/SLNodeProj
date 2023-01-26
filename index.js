@@ -65,7 +65,7 @@ app.get('/', (req, res) =>{
 app.post('/auth/login', loginValidation, handleValidationErrors,UserController.login)
 app.post('/auth/reg', registerValidation, handleValidationErrors, UserController.register)//     ######TODO######        роли пользователей (Преподаватель, студент, админ, супервайзер)
 app.get('/auth/me', checkAuth, UserController.getMe)
-app.get('/profile/:id', checkAuth, UserProfileController.profileGetMe)
+app.get('/profile', checkAuth, UserProfileController.profileGetMe)
 app.post('/profile', checkAuth, UserProfileController.profileCreate)
 app.patch('/auth/me', checkAuth, UserController.editStatus)
 //app.patch('/profile', checkAuth, UserProfileController.profileUpdate)

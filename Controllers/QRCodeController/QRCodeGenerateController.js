@@ -15,14 +15,11 @@ export const generateAsSymbols = async (req, res) =>{
         // Converting the data into String format
         let stringdata = JSON.stringify(data)
 
-        // Print the QR code to terminal
         QRCode.toString(stringdata,{type:''},
         function (err, QRcode) {
 
             if(err) return res.json("error occurred")
 
-            // Printing the generated code
-            console.log(QRcode)
             return res.send(QRcode)
         })
 
@@ -47,12 +44,9 @@ export const generateAsString = async (req, res) =>{
         // Converting the data into String format
         let stringdata = JSON.stringify(data)
 
-        // Converting the data into base64
         QRCode.toDataURL(stringdata, function (err, code) {
         if(err) return console.log("error occurred")
 
-        // Printing the code
-        console.log(code)
         return res.send(code)
         })
 
@@ -63,4 +57,3 @@ export const generateAsString = async (req, res) =>{
         })
     }
 }
-// Require the package
