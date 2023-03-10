@@ -17,7 +17,7 @@ mongoose.set('strictQuery', false);
 
 //Подключение к базе данных
 mongoose.connect(
-    'mongodb://127.0.0.1:27017/blog?retryWrites=true&w=majority'
+    'mongodb://yourURL'
     ).then(()=>{
         console.log("DB OK")
     }).catch((err)=>{
